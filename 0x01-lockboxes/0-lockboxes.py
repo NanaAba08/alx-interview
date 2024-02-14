@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+"""Solves the lock boxes puzzle """
+
+
 def canUnlockAll(boxes):
     n = len(boxes)
     visited = [False] * n
