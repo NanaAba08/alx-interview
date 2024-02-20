@@ -3,17 +3,23 @@
 
 
 def minOperations(n):
-    if n <= 1:
+    """
+    minOperations
+    Gets fewest # of operations needed to result in exactly n H characters
+    """
+    # all outputs should be at least 2 char: (min, Copy All => Paste)
+    if (n < 2):
         return 0
-
-    # Initialize a list to store the minimum operations required for each index
-    min_ops = [0] * (n + 1)
-
-    for i in range(2, n + 1):
-        min_ops[i] = float('inf')
-        for j in range(1, i):
-            # If i is divisible by j, we can achieve i by copying j times and pasting (i // j) - 1 times
-            if i % j == 0:
-                min_ops[i] = min(min_ops[i], min_ops[j] + i // j)
-
-    return min_ops[n] if min_ops[n] != float('inf') else 0
+    ops, root = 0, 2
+    while root <= n:
+        # if n evenly divides by root
+        if n % root == 0:
+            # total even-divisions by root = total operations
+            ops += root
+            # set n to the remainder
+            n = n / root
+            # reduce root to find remaining smaller vals that evenly-divide n
+            root -= 1
+        # increment root until it evenly-divides n
+        root += 1
+    return ops
